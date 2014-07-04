@@ -48,6 +48,7 @@ public class MainActivity extends Activity implements OnTouchListener {
         topView = (TopView) findViewById(R.id.topview);
         mylinear = (MyLinearlayout) findViewById(R.id.mylinear);
         myScrollView.setOnTouchListener(this);
+        System.err.println("hello git");
     }
 
     public static float clamp(float value, float min, float max) {
