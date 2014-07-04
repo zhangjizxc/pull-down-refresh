@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+	<!-- 此处是空白的占位控件 -->
+    <TextView
+        android:id="@+id/trance_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_height"
+        android:background="#343434"
+        android:gravity="center"
+        android:textColor="#ffffff" />
+
+    <LinearLayout
+        android:id="@+id/linear_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_id1"
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:background="#00f0f0"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dip"
+            android:text="dada" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.demosliding.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <com.example.demosliding.TopView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff0000" >
+
+        <LinearLayout
+            android:id="@+id/linear_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_height"
+            android:layout_gravity="top"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_top_real"
+            android:layout_width="@dimen/search_edit_width"
+            android:layout_height="@dimen/search_edit_height"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="visible" >
+        </LinearLayout>
+    </com.example.demosliding.TopView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00f0f0" >
+    </FrameLayout>
+
+</LinearLayout>

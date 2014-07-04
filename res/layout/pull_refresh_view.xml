@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.demosliding.MainActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <com.example.demosliding.EntryScrollView
+        android:id="@+id/entry_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+		<!-- 此view专门用来添加Top以下部分的内容-->
+        <com.example.demosliding.MyLinearlayout
+            android:id="@+id/mylinear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#343434"
+            android:gravity="center"
+            android:orientation="vertical" />
+    </com.example.demosliding.EntryScrollView>
+
+    <com.example.demosliding.TopView
+        android:id="@+id/topview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+		<!-- 此处是专门用canvas来放大的 -->
+        <LinearLayout
+            android:id="@+id/linear_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_height"
+            android:layout_gravity="top"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+        </LinearLayout>
+	
+        <!-- 这是实际展示的topview，需要将真实的view add进此view中 -->
+        <FrameLayout
+            android:id="@+id/linear_top_real"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/top_height" >
+        </FrameLayout>
+    </com.example.demosliding.TopView>
+    
+</RelativeLayout>

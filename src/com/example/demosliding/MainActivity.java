@@ -1,178 +1,65 @@
-
 package com.example.demosliding;
 
-import android.annotation.SuppressLint;
+import com.example.demosliding.PullToRefresh.MyScrollListener;
+
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ScrollView;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
-import com.example.demosliding.MyAnimator.MyAnimatorListener;
+public class MainActivity extends Activity implements MyScrollListener {
 
-public class MainActivity extends Activity implements OnTouchListener {
+	// EntryScrollView entryScrollView;
 
-    float startY;
-    float curTempY;
-    float oldTempY;
-    float distance;
-    float tempDistance;
-    float temp;
-    float ratio;
-    float scale;
-    float topHeight;
-    float minTranceY;
-    boolean isOpen = false;// topviewï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
-    boolean isInitOneTimeUp = true;
-    boolean isInitOneTimeDown = true;
-    boolean isStartAnimation = false;// ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½
-    TopView topView;
-    MyLinearlayout mylinear;
-    MyScrollView myScrollView;
-    Handler handler;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		PullToRefresh pullToRefresh = (PullToRefresh) findViewById(R.id.main_view);
+		View viewTop = LayoutInflater.from(this).inflate(R.layout.top, null);
+		View viewContent = LayoutInflater.from(this).inflate(R.layout.content, null);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        topHeight = getResources().getDimension(R.dimen.top_height);
-        minTranceY = getResources().getDimension(R.dimen.top_height);
-        handler = new Handler();
+//		viewContent.findViewById(R.id.tv_id1).setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				Toast.makeText(getApplicationContext(), "AAAAAAAAA", Toast.LENGTH_SHORT).show();
+//			}
+//		});
+		pullToRefresh.setTopView(viewTop);
+		pullToRefresh.setContentView(viewContent);
+		pullToRefresh.setScrollViewListener(this);
+		// °ÑÕâÐ©¶«Î÷¶¼Ð´ÔÚPullToRefreshÀïÃæ
+//		entryScrollView = pullToRefresh.getMyScrollView();
+//		entryScrollView.setScrollViewListener(new ScrollViewListener() {
+//
+//			@Override
+//			public void onTouchEvent(MotionEvent ev) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void onScrollChanged(EntryScrollView scrollView, int x, int y, int oldx, int oldy) {
+//
+//			}
+//
+//			@Override
+//			public void onInterceptTouchEvent(MotionEvent ev) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+	}
 
-        myScrollView = (MyScrollView) findViewById(R.id.scroll);
-        myScrollView.setOverScrollMode(ScrollView.OVER_SCROLL_NEVER);
-        topView = (TopView) findViewById(R.id.topview);
-        mylinear = (MyLinearlayout) findViewById(R.id.mylinear);
-        myScrollView.setOnTouchListener(this);
-        System.err.println("hello git");
-    }
+	@Override
+	public void onScrollChanged(EntryScrollView scrollView, int x, int y, int oldx, int oldy) {
+		Log.e("pengpeng", "11y = " + y);
 
-    public static float clamp(float value, float min, float max) {
-        return Math.max(Math.min(value, max), min);
-    }
-
-    @SuppressLint("NewApi")
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startY = event.getY();
-                isStartAnimation = false;
-                if (ratio > 0) {
-                    myScrollView.setShouldScroll(false);
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                curTempY = event.getY();
-                Log.v("533", " myScrollView.getScrollY()="+myScrollView.getScrollY() +" event.getY()="+(event.getY()));
-                if (myScrollView.getScrollY() == 0) {
-
-                    if (curTempY - oldTempY > 0) {
-                        isInitOneTimeUp = true;
-                        if (isInitOneTimeDown) {
-                            startY = curTempY;
-                            tempDistance = distance;
-                            isInitOneTimeDown = false;
-                        }
-                        distance = tempDistance + Math.abs((curTempY - startY));
-                        if (distance >= topHeight) {
-                            distance = topHeight;
-                        }
-//                        Log.d("pengpeng", "distance = " + distance + " tempDistance = "
-//                                + tempDistance + " 111 = " + (curTempY - startY) + " curTempY = "
-//                                + curTempY + " startY = " + startY);
-                        ratio = clamp(distance / topHeight, 0.0f, 1.0f);
-
-                    } else if (curTempY - oldTempY < 0) {
-                        isInitOneTimeDown = true;
-                        if (isInitOneTimeUp) {
-                            startY = curTempY;
-                            tempDistance = distance;
-                            isInitOneTimeUp = false;
-                        }
-
-                        distance = tempDistance - Math.abs((curTempY - startY));
-
-                        ratio = clamp(distance / topHeight, 0.0f, 1.0f);
-                    }
-                    if (distance == topHeight) {// ritioï¿½ï¿½ï¿½ï¿½1ï¿½Ôºï¿½tempDistanceï¿½Í¹Ì¶ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½
-                        tempDistance = topHeight;
-                    }
-//                    Log.d("pengpeng", "distance = " + distance + " tempDistance = " + tempDistance
-//                            + " 111 = " + (curTempY
-//                            - startY) + " curTempY = " + curTempY + " startY = " + startY);
-                    scale = 1.0f + ratio * ((minTranceY + topHeight) / topHeight - 1.0f);
-                    topView.setRatio(ratio, scale);
-                    mylinear.setRatio(ratio, scale);
-                    oldTempY = curTempY;
-                    Log.v("533"," scale="+scale +"  ratio="+ratio);
-                    if (ratio == 0.0f) {
-                        return false;
-                    }
-
-                    return true;
-
-                    // Log.d("pengpeng", "tempY = " + curTempY + " startY = " +
-                    // startY + " distance = " + distance);
-                    // Log.d("pengpeng",
-                    // "myScrollView.getScrollY() = "+myScrollView.getScrollY());
-                    // curTempY = event.getY();
-                    // distance = curTempY - startY;
-                    // ratio = clamp(distance / topHeight, 0.0f, 1.0f);
-                    // scale = 1.0f + ratio * ((minTranceY + topHeight) /
-                    // topHeight - 1.0f);
-                    // topView.setRatio(ratio, scale);
-                    // mylinear.setRatio(ratio, scale);
-                    // // Log.d("pengpeng", "ratio = " +
-                    // ratio+" distance = "+distance+" curTempY = "+curTempY);
-                    // // tempDistance = distance;
-                    // if(ratio == 0.0f){
-                    // return false;
-                    // }
-                    // return true;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                // startY = 0;
-                // tempDistance = distance;
-                myScrollView.setShouldScroll(true);
-
-                MyAnimator animator = new MyAnimator();
-                animator.setDuration(150);
-                animator.setListener(new MyAnimatorListener() {
-
-                    public void onAnimationUpdate(float fraction) {
-
-                        if (isStartAnimation) {
-                            tempDistance = temp * (1 - fraction);
-                            distance = temp * (1 - fraction);
-                            topView.setRatio((1 - fraction) * ratio, 1.0f + (1 - fraction)
-                                    * (scale - 1.0f));
-                            mylinear.setRatio((1 - fraction) * ratio, 1.0f + (1 - fraction)
-                                    * (scale - 1.0f));
-                            // Log.d("pengpeng",
-                            // "-------------onAnimationEnd fraction = "+fraction);
-                        }
-
-                    }
-
-                    public void onAnimationStart() {
-                        isStartAnimation = true;
-                        temp = distance;
-                    }
-
-                    public void onAnimationEnd() {
-                        isStartAnimation = false;
-                    }
-                });
-                animator.start();
-                break;
-        }
-        return false;
-    }
+	}
 
 }

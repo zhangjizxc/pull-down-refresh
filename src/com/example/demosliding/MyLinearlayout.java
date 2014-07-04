@@ -43,29 +43,36 @@ public class MyLinearlayout extends LinearLayout {
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
 		super.dispatchDraw(canvas);
-		tranceView = (TextView) findViewById(R.id.trance_view);
-		linearContent = (LinearLayout) findViewById(R.id.linear_content);
+//		tranceView = (TextView) findViewById(R.id.trance_view);
+//		linearContent = (LinearLayout) findViewById(R.id.linear_content);
 	}
 
 	@Override
 	protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
-		if (child == tranceView) {
-//			Log.d("pengpeng", "scale = "+scale+" screenWidth = "+screenWidth+" topCenterY = "+topCenterY);
-			canvas.save();
-//			canvas.scale(1, scale, 0, 0);
-			boolean result = super.drawChild(canvas, child, drawingTime);
-			canvas.restore();
-			return result;
-		}else if(child == linearContent){
-			canvas.save();
-			canvas.translate(0, ratio * minTranceY);
-			boolean result = super.drawChild(canvas, child, drawingTime);
-			canvas.restore();
-			return result;
-		}else{
-			boolean result = super.drawChild(canvas, child, drawingTime);
-			return result;
-		}
+//		if (child == tranceView) {
+////			Log.d("pengpeng", "scale = "+scale+" screenWidth = "+screenWidth+" topCenterY = "+topCenterY);
+//			canvas.save();
+////			canvas.scale(1, scale, 0, 0);
+//			boolean result = super.drawChild(canvas, child, drawingTime);
+//			canvas.restore();
+//			return result;
+//		}else if(child == linearContent){
+//			canvas.save();
+//			canvas.translate(0, ratio * minTranceY);
+//			boolean result = super.drawChild(canvas, child, drawingTime);
+//			canvas.restore();
+//			return result;
+//		}else{
+//			boolean result = super.drawChild(canvas, child, drawingTime);
+//			return result;
+//		}
+		
+		
+		canvas.save();
+		canvas.translate(0, ratio * minTranceY);
+		boolean result = super.drawChild(canvas, child, drawingTime);
+		canvas.restore();
+		return result;
 	}
 
 }

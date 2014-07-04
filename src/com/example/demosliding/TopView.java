@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class TopView extends FrameLayout{
 
@@ -19,7 +19,7 @@ public class TopView extends FrameLayout{
 	float topCenterY;
 	float screenWidth;
 	LinearLayout linearTop;
-	LinearLayout linearTopReal;
+	FrameLayout topReal;
 	public TopView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		if (!isInEditMode()) {
@@ -31,6 +31,7 @@ public class TopView extends FrameLayout{
             screenWidth = display.getWidth();
 
         }
+		
 	}
 
 	public void setRatio(float ratio, float scale) {
@@ -43,20 +44,22 @@ public class TopView extends FrameLayout{
 	protected void dispatchDraw(Canvas canvas) {
 		super.dispatchDraw(canvas);
 		linearTop = (LinearLayout)findViewById(R.id.linear_top);
-		linearTopReal = (LinearLayout)findViewById(R.id.linear_top_real);
+		topReal = (FrameLayout)findViewById(R.id.linear_top_real);
 	}
 	
 	@Override
 	protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
 		if(!isInEditMode()){
+//			Log.d("pengpeng", "ratio = "+ratio);
 			if(child == linearTop){
 				canvas.save();
 				canvas.scale(1, scale, 0, 0);
+//				Log.d("pengpeng", "1111 = "+ratio);
 //				canvas.translate(0, minTranceY * ratio);
 				boolean result = super.drawChild(canvas, child, drawingTime);
 				canvas.restore();
 				return result;
-			}else if(child == linearTopReal){
+			}else if(child == topReal){
 				canvas.save();
 				canvas.translate(0, (minTranceY/2) * ratio);
 				boolean result = super.drawChild(canvas, child, drawingTime);
